@@ -6,13 +6,13 @@ The goals of this project are the following:
 * Make a pipeline that finds lane lines on the road
 * Reflect on the findings and the work involved in the project
 
-[initial]: ./readme_images/grey.png "Initial image"
-[grey]: ./readme_images/grey.png "Grayscale"
-[gaussian]: ./readme_images/gaussian.png "Gaussian blur"
-[canny]: ./readme_images/canny.png "Canny Edge detection"
-[masked]: ./readme_images/masked.png "Masked region"
-[hough]: ./readme_images/hough.png "Hough transform"
-[weighted]: ./readme_images/weighted.png "Final image"
+[initial]: ./readme_images/grey.jpg "Initial image"
+[grey]: ./readme_images/grey.jpg "Grayscale"
+[gaussian]: ./readme_images/gaussian.jpg "Gaussian blur"
+[canny]: ./readme_images/canny.jpg "Canny Edge detection"
+[masked]: ./readme_images/masked.jpg "Masked region"
+[hough]: ./readme_images/hough.jpg "Hough transform"
+[weighted]: ./readme_images/weighted.jpg "Final image"
 
 ---
 
