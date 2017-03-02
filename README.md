@@ -7,7 +7,7 @@ The goals of this project are the following:
 * Reflect on the findings and the work involved in the project
 
 [initial]: ./readme_images/grey.jpg "Initial image"
-[grey]: (./readme_images/grey.jpg "Grayscale" =1000x650)
+[grey]: (./readme_images/grey.jpg =1000x650)
 [gaussian]: ./readme_images/gaussian.jpg "Gaussian blur"
 [canny]: ./readme_images/canny.jpg "Canny Edge detection"
 [masked]: ./readme_images/masked.jpg "Masked region"
