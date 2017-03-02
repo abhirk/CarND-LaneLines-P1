@@ -1,53 +1,57 @@
-#**Finding Lane Lines on the Road** 
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+# **Project 1: Finding Lane Lines on the Road** 
+  A self-driving car needs to determine the bounds of the lane of the road in which it needs to drive. In this project, we have built the core logic pipeline that will help the car identify the lane lines, which can be used to navigate.
 
-<img src="laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
+**Goals**
+The goals of this project are the following:
+* Make a pipeline that finds lane lines on the road
+* Reflect on the findings and the work involved in the project
 
-Overview
+[initial]: ./readme_images/grey.png "Initial image"
+[grey]: ./readme_images/grey.png "Grayscale"
+[gaussian]: ./readme_images/gaussian.png "Gaussian blur"
+[canny]: ./readme_images/canny.png "Canny Edge detection"
+[masked]: ./readme_images/masked.png "Masked region"
+[hough]: ./readme_images/hough.png "Hough transform"
+[weighted]: ./readme_images/weighted.png "Final image"
+
 ---
 
-When we drive, we use our eyes to decide where to go.  The lines on the road that show us where the lanes are act as our constant reference for where to steer the vehicle.  Naturally, one of the first things we would like to do in developing a self-driving car is to automatically detect lane lines using an algorithm.
+### Reflection
 
-In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.  
+### 1. Pipeline
+Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-To complete the project, two files will be submitted: a file containing project code and a file containing a brief write up explaining your solution. We have included template files to be used both for the [code](https://github.com/udacity/CarND-LaneLines-P1/blob/master/P1.ipynb) and the [writeup](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md).The code file is called P1.ipynb and the writeup template is writeup_template.md 
+The following example illiustrates the steps in the pipeline in brief:
+ - Consider the initial image as shown below.
+ -   First we convert Image to Grayscale. 
+     ![ 2 - Grayscale][grey]
+ -   Image thresholding - WHY?
+ -   Mask the region of interest
+ -   Edge detection - Canny
+ -   Hough transform - describe results
+ -   Improve draw lines
 
-To meet specifications in the project, take a look at the requirements in the [project rubric](https://review.udacity.com/#!/rubrics/322/view)
+-------
+In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
+If you'd like to include images to show how the pipeline works, here is how to include an image: 
+
+-----
+
+### 2. Identify potential shortcomings with your current pipeline
+
+##### a) Approach Shortcomings:
+- One shortcoming is the parameters for the region of interest are dependent on the the initial angle for the lane lines and their position in the image (decided by the position of the camera w.r.t. the road). More complex and sharp turns might not return correct lanes. Similarly the code is not tested for the lane lines when the road turns (sharply), which might cause error in determining the bounds of the lanes correctly.
+
+ - The code is also not tested for correctness in cases where the signs painted on the road, but which are not part of the lines e.g. "STOP", Direction arrows like right turn or "ONE WAY" or simply the pedestrian crossing.
+
+##### b) Implementation Shortcomings:
+ - One potential shortcoming would be what would happen when there is noise in the detected Hough Transform. The line fitted by the linear regression is further away from what it should be. 
+
+ - Another shortcoming is each set of lane lines determined in a image/frame of a video is independent of the previous frame. This can cause flicker due to changes in the frame lines or sudden changes in the line lengths or angle due to noise or other errors.
 
 
-Creating a Great Writeup
----
-For this project, a great writeup should provide a detailed response to the "Reflection" section of the [project rubric](https://review.udacity.com/#!/rubrics/322/view). There are three parts to the reflection:
-
-1. Describe the pipeline
-
-2. Identify any shortcomings
-
-3. Suggest possible improvements
-
-We encourage using images in your writeup to demonstrate how your pipeline works.  
-
-All that said, please be concise!  We're not looking for you to write a book here: just a brief description.
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup. Here is a link to a [writeup template file](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md). 
-
-
-The Project
----
-
-## If you have already installed the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) you should be good to go!   If not, you should install the starter kit to get started on this project. ##
-
-**Step 1:** Set up the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) if you haven't already.
-
-**Step 2:** Open the code in a Jupyter Notebook
-
-You will complete the project code in a Jupyter notebook.  If you are unfamiliar with Jupyter Notebooks, check out <A HREF="https://www.packtpub.com/books/content/basics-jupyter-notebook-and-python" target="_blank">Cyrille Rossant's Basics of Jupyter Notebook and Python</A> to get started.
-
-Jupyter is an Ipython notebook where you can run blocks of code and see results interactively.  All the code for this project is contained in a Jupyter notebook. To start Jupyter in your browser, use terminal to navigate to your project directory and then run the following command at the terminal prompt (be sure you've activated your Python 3 carnd-term1 environment as described in the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) installation instructions!):
-
-`> jupyter notebook`
-
-A browser window will appear showing the contents of the current directory.  Click on the file called "P1.ipynb".  Another browser window will appear displaying the notebook.  Follow the instructions in the notebook to complete the project.  
-
-**Step 3:** Complete the project and submit both the Ipython notebook and the project writeup
+### 3. Suggest possible improvements to your pipeline
+ - A possible improvement for reducing the noise from the lines returned from the Hough transform is to mask the region that should not have lane edges assuming we are driving in the center of the lane and the camera position is fixed.
+ - Fitting the points to a curve instead of line can improve the lane bounds that are detected
+ - A possible way to reduce the flicker and smoothen the sudden changes in the lanes in the video is to remember previous N frames and aggregate the position of the lane lines.
 
